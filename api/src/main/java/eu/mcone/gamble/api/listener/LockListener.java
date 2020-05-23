@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.api.listener;
 
 import eu.mcone.gamble.api.Gamble;
@@ -15,9 +20,6 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 
-/**
- * Datei erstellt von: Felix Schmid in Projekt: mcone-gamble
- */
 public class LockListener extends GambleListener {
 
     public LockListener(Gamble gamble, GambleGame gambleGame) {

@@ -1,12 +1,14 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.api.utils;
 
 import eu.mcone.gamble.api.player.GamblePlayer;
 import org.bukkit.GameMode;
 import org.bukkit.potion.PotionEffect;
 
-/**
- * Datei erstellt von: Felix Schmid in Projekt: mcone-gamble
- */
 public class GamblePlayerUtils {
 
     public static void resetPlayer(GamblePlayer gamePlayer) {

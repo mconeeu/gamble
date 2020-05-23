@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+  ~ You are not allowed to decompile the code
+  -->
+
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -12,7 +17,6 @@
         <module>plugin</module>
         <module>testgame</module>
     </modules>
-
 
     <packaging>pom</packaging>
 
@@ -36,6 +40,19 @@
             </roles>
             <timezone>Europe/Berlin</timezone>
         </developer>
+
+        <developer>
+            <id>dominklippl</id>
+            <name>Dominik Lippl</name>
+            <url>https://dominiklippl.de</url>
+            <organization>MC ONE</organization>
+            <organizationUrl>https://www.mcone.eu</organizationUrl>
+            <roles>
+                <role>administrator</role>
+                <role>developer</role>
+            </roles>
+            <timezone>Europe/Berlin</timezone>
+        </developer>
     </developers>
 
     <organization>
@@ -49,6 +66,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.7.0</version>
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
@@ -57,7 +75,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.1</version>
+                <version>3.1.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -66,14 +84,8 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.0.1</version>
                 <configuration>
-                    <show>public</show>
-                    <additionalJOption>-Xdoclint:none</additionalJOption>
+                    <shadedArtifactAttached>false</shadedArtifactAttached>
                 </configuration>
             </plugin>
         </plugins>
@@ -91,14 +103,6 @@
             <url>https://repo.onegaming.group/repository/mcone-systems/</url>
         </repository>
     </distributionManagement>
-
-    <repositories>
-        <repository>
-            <id>mcone-systems</id>
-            <url>https://repo.mcone.eu/repository/mcone-systems/</url>
-        </repository>
-    </repositories>
-
 
     <dependencies>
         <dependency>

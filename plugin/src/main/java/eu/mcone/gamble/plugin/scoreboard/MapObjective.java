@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.plugin.scoreboard;
 
 import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
@@ -5,9 +10,6 @@ import eu.mcone.coresystem.api.bukkit.scoreboard.CoreSidebarObjective;
 import eu.mcone.gamble.api.player.GamblePlayer;
 import eu.mcone.gamble.plugin.GamblePlugin;
 
-/**
- * Datei erstellt von: Felix Schmid in Projekt: mcone-gamble
- */
 public class MapObjective extends CoreSidebarObjective {
     public MapObjective() {
         super("gamble_inmap");

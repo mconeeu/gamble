@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.testgame;
 
 import eu.mcone.gamble.api.EndReason;
@@ -14,16 +19,12 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-/**
- * Datei erstellt von: Felix Schmid in Projekt: mcone-gamble
- */
 public class TestGame extends GambleGame {
 
     private Gamble gamble;
     private GamePlugin gamePlugin;
 
     public TestGame() {
-
     }
 
     @Override
@@ -42,10 +43,8 @@ public class TestGame extends GambleGame {
             gamePlugin.getMessenger().broadcast("Ingame...");
             GambleGameResult[] results = new GambleGameResult[1];
             Player player = (Player) Bukkit.getOnlinePlayers().toArray()[0];
-            Iterator<? extends Player> it = Bukkit.getOnlinePlayers().iterator();
 
-            while (it.hasNext()) {
-                Player p = it.next();
+            for (Player p : Bukkit.getOnlinePlayers()) {
                 if (p.getName().equalsIgnoreCase("schmiddinger")) {
                     player = p;
                 }
@@ -55,12 +54,7 @@ public class TestGame extends GambleGame {
             gamePlugin.getMessenger().broadcast("Alter mittem im game simma");
 
             results[0] = new GambleGameResult(gamble.getGamblePlayer(player.getUniqueId()), 1, 8);
-            Bukkit.getScheduler().runTaskLater(this, new Runnable() {
-                @Override
-                public void run() {
-                    gamble.finishGambleGame(GambleGameType.TEST, EndReason.ENDED, results);
-                }
-            }, 5 * 20);
+            Bukkit.getScheduler().runTaskLater(this, () -> gamble.finishGambleGame(GambleGameType.TEST, EndReason.ENDED, results), 5 * 20);
         } else if (gamePhase == GambleGamePhase.END) {
             gamePlugin.getMessenger().broadcast("Stopping minigame...");
         }

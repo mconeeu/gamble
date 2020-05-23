@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.plugin;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
@@ -39,10 +44,6 @@ import org.bukkit.scoreboard.DisplaySlot;
 
 import java.util.*;
 
-/**
- * Datei erstellt von: Felix Schmid in Projekt: mcone-gamble
- */
-
 @Getter
 public class GamblePlugin extends GamePlugin implements Gamble {
 
@@ -55,8 +56,8 @@ public class GamblePlugin extends GamePlugin implements Gamble {
     private GambleGame currentGame;
     @Setter
     private GambleGameType nextGameType;
-    private List<GamblePlayer> ingame = new ArrayList<GamblePlayer>();
-    private final Map<Integer, GambleGameResult[]> gambleResults = new HashMap<Integer, GambleGameResult[]>();
+    private List<GamblePlayer> ingame;
+    private Map<Integer, GambleGameResult[]> gambleResults;
     private Dice dice;
     private LockListener lockListener;
     private List<GambleListener> minigameListeners;
@@ -95,10 +96,11 @@ public class GamblePlugin extends GamePlugin implements Gamble {
                 new GambleMainCommand()
         );
 
-        ingame = new ArrayList<GamblePlayer>();
+        ingame = new ArrayList<>();
+        gambleResults = new HashMap<>();
         currentRound = 0;
         random = new Random();
-        minigameListeners = new ArrayList<GambleListener>();
+        minigameListeners = new ArrayList<>();
         currentGame = null;
         lastGambleGame = null;
         countFields();
@@ -198,7 +200,7 @@ public class GamblePlugin extends GamePlugin implements Gamble {
                 countdownId[0] = Bukkit.getScheduler().scheduleSyncRepeatingTask(getInstance(), new Runnable() {
                     @Override
                     public void run() {
-                        if(countdownTime[0] > 0) {
+                        if (countdownTime[0] > 0) {
                             baseMinigameHelper.getCallback().tick(countdownTime[0]);
                             countdownTime[0]--;
                         } else {

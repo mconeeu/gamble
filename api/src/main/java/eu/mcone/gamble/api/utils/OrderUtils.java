@@ -1,10 +1,12 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.api.utils;
 
 import java.util.*;
 
-/**
- * Datei erstellt von: Felix Schmid in Projekt: mcone-gamble
- */
 public class OrderUtils {
 
     public static <K, V extends Comparable<? super V>> Map<K, V> sortByValue(Map<K, V> map) {

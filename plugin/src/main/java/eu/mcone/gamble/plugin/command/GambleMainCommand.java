@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.plugin.command;
 
 import eu.mcone.coresystem.api.bukkit.command.CorePlayerCommand;
@@ -12,10 +17,6 @@ import org.bukkit.entity.Player;
 import java.util.Arrays;
 import java.util.Map;
 
-
-/**
- * Datei erstellt von: Felix Schmid in Projekt: mcone-gamble
- */
 public class GambleMainCommand extends CorePlayerCommand {
 
     public GambleMainCommand() {

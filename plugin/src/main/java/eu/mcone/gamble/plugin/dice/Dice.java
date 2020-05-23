@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.plugin.dice;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
@@ -20,22 +25,18 @@ import java.util.Map;
 import java.util.Random;
 import java.util.UUID;
 
-/**
- * Datei erstellt von: Felix Schmid in Projekt: mcone-gamble
- */
-
 @Getter
 public class Dice implements Listener {
 
-    private Map<Integer, CoreTitle> titles;
-    private Map<UUID, Integer> results, currentValue;
-    private Random random;
+    private final Map<Integer, CoreTitle> titles;
+    private final Map<UUID, Integer> results, currentValue;
+    private final Random random;
 
     public Dice() {
         random = new Random();
-        titles = new HashMap<Integer, CoreTitle>();
-        results = new HashMap<UUID, Integer>();
-        currentValue = new HashMap<UUID, Integer>();
+        titles = new HashMap<>();
+        results = new HashMap<>();
+        currentValue = new HashMap<>();
 
         Bukkit.getPluginManager().registerEvents(this, GamblePlugin.getInstance());
 
@@ -72,23 +73,17 @@ public class Dice implements Listener {
                     ((BaseGamblePlayer) gp).giveMapItems();
                 }
 
-                Bukkit.getScheduler().scheduleSyncDelayedTask(GamblePlugin.getInstance(), new Runnable() {
-                    @Override
-                    public void run() {
-                        if(!GamblePlugin.getInstance().getFinishGambleHelper().request()) {
-                            GamblePlugin.getInstance().getMessenger().broadcast("Das nächste Spiel wird gezogen!");
+                Bukkit.getScheduler().scheduleSyncDelayedTask(GamblePlugin.getInstance(), () -> {
+                    if(!GamblePlugin.getInstance().getFinishGambleHelper().request()) {
+                        GamblePlugin.getInstance().getMessenger().broadcast("Das nächste Spiel wird gezogen!");
 
-                            Bukkit.getScheduler().scheduleSyncDelayedTask(GamblePlugin.getInstance(), new Runnable() {
-                                @Override
-                                public void run() {
-                                    try {
-                                        GamblePlugin.getInstance().initiateNextGameRound();
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }, 40);
-                        }
+                        Bukkit.getScheduler().scheduleSyncDelayedTask(GamblePlugin.getInstance(), () -> {
+                            try {
+                                GamblePlugin.getInstance().initiateNextGameRound();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }, 40);
                     }
                 }, 50);
             }
@@ -100,19 +95,16 @@ public class Dice implements Listener {
         currentValue.clear();
 
 
-        Bukkit.getScheduler().scheduleSyncDelayedTask(GamblePlugin.getInstance(), new Runnable() {
-            @Override
-            public void run() {
-                for (GamblePlayer gamblePlayer : GamblePlugin.getInstance().getIngame()) {
-                    if (!results.containsKey(gamblePlayer.getPlayer().getUniqueId())) {
-                        gamblePlayer.getPlayer().playSound(gamblePlayer.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
-                        results.put(gamblePlayer.getPlayer().getUniqueId(), currentValue.get(gamblePlayer.getPlayer().getUniqueId()));
-                        titles.get(currentValue.get(gamblePlayer.getPlayer().getUniqueId())).send(gamblePlayer.getPlayer());
-                    }
+        Bukkit.getScheduler().scheduleSyncDelayedTask(GamblePlugin.getInstance(), () -> {
+            for (GamblePlayer gamblePlayer : GamblePlugin.getInstance().getIngame()) {
+                if (!results.containsKey(gamblePlayer.getPlayer().getUniqueId())) {
+                    gamblePlayer.getPlayer().playSound(gamblePlayer.getPlayer().getLocation(), Sound.LEVEL_UP, 1f, 1f);
+                    results.put(gamblePlayer.getPlayer().getUniqueId(), currentValue.get(gamblePlayer.getPlayer().getUniqueId()));
+                    titles.get(currentValue.get(gamblePlayer.getPlayer().getUniqueId())).send(gamblePlayer.getPlayer());
                 }
-
-                runnable.run();
             }
+
+            runnable.run();
         }, 20 * 10);
 
         for (GamblePlayer gamblePlayer : GamblePlugin.getInstance().getIngame()) {
@@ -135,26 +127,16 @@ public class Dice implements Listener {
             final int finalExtraCS = extraCS;
             for (int r = 0; r < 6 + extraCS; r++) {
                 i++;
-                Bukkit.getScheduler().scheduleAsyncDelayedTask(GamblePlugin.getInstance(), new Runnable() {
-                    @Override
-                    public void run() {
-                        if (!results.containsKey(gamblePlayer.getPlayer().getUniqueId())) {
-                            if (currentValue.containsKey(gamblePlayer.getPlayer().getUniqueId())) {
-                                currentValue.remove(gamblePlayer.getPlayer().getUniqueId());
-                            }
-                            currentValue.put(gamblePlayer.getPlayer().getUniqueId(), random.nextInt(6 + finalExtraCS) + 1);
-                            titles.get(random.nextInt(6 + finalExtraCS) + 1).send(gamblePlayer.getPlayer());
-                            gamblePlayer.getPlayer().playSound(gamblePlayer.getPlayer().getLocation(), Sound.CLICK, 1f, 1f);
-                        }
+                Bukkit.getScheduler().scheduleAsyncDelayedTask(GamblePlugin.getInstance(), () -> {
+                    if (!results.containsKey(gamblePlayer.getPlayer().getUniqueId())) {
+                        currentValue.remove(gamblePlayer.getPlayer().getUniqueId());
+                        currentValue.put(gamblePlayer.getPlayer().getUniqueId(), random.nextInt(6 + finalExtraCS) + 1);
+                        titles.get(random.nextInt(6 + finalExtraCS) + 1).send(gamblePlayer.getPlayer());
+                        gamblePlayer.getPlayer().playSound(gamblePlayer.getPlayer().getLocation(), Sound.CLICK, 1f, 1f);
                     }
                 }, 7 * i);
             }
-            Bukkit.getScheduler().scheduleSyncDelayedTask(GamblePlugin.getInstance(), new Runnable() {
-                @Override
-                public void run() {
-                    request(gamblePlayer);
-                }
-            }, i + 3);
+            Bukkit.getScheduler().scheduleSyncDelayedTask(GamblePlugin.getInstance(), () -> request(gamblePlayer), i + 3);
         }
     }
 

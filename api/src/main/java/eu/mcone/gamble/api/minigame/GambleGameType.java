@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.api.minigame;
 
 import lombok.Getter;
@@ -5,9 +10,6 @@ import lombok.Setter;
 
 import java.io.File;
 
-/**
- * Datei erstellt von: Felix Schmid in Projekt: mcone-gamble
- */
 public enum GambleGameType {
 
     TEST(new File("./gamble-games/gamble-test-game.jar"), "Testspiel", "Schmiddinger"),

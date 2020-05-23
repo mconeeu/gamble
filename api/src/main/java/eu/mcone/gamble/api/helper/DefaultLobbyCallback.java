@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.api.helper;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
@@ -6,9 +11,6 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-/**
- * Datei erstellt von: Felix Schmid in Projekt: mcone-gamble
- */
 public class DefaultLobbyCallback implements CountdownCallback {
 
     private List<Player> players;

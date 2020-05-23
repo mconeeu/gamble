@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.api.utils;
 
 import eu.mcone.gamble.api.Gamble;
@@ -18,9 +23,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 
-/**
- * Datei erstellt von: Felix Schmid in Projekt: mcone-gamble
- */
 public class MinigameUtils {
 
     /**

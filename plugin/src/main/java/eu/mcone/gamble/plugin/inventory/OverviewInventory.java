@@ -1,3 +1,8 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
+ * You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.plugin.inventory;
 
 import eu.mcone.coresystem.api.bukkit.inventory.CoreInventory;
@@ -11,9 +16,6 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Datei erstellt von: Felix Schmid in Projekt: mcone-gamble
- */
 public class OverviewInventory extends CoreInventory {
 
     public OverviewInventory(Player player) {
