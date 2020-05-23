@@ -1,0 +1,4 @@
+name: gamble-testgame
+version: 1.0.0.1
+main: eu.mcone.gamble.testgame.TestGame
+authors: [Schmiddinger]

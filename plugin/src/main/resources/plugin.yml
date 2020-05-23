@@ -1,0 +1,5 @@
+name: gamble
+version: ${project.version}
+main: eu.mcone.gamble.plugin.GamblePlugin
+authors: [Schmiddinger]
+depend: [MCONE-BukkitCoreSystem, MCONE-GameAPI]
