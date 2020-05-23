@@ -14,7 +14,12 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
+    <repositories>
+        <repository>
+            <id>mcone-systems</id>
+            <url>https://repo.onegaming.group/repository/mcone-systems/</url>
+        </repository>
+    </repositories>
+
     <artifactId>api</artifactId>
-
-
 </project>
