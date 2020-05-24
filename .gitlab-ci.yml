@@ -6,6 +6,7 @@ variables:
   # when running from the command line.
   # `installAtEnd` and `deployAtEnd` are only effective with recent version of the corresponding plugins.
   MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+  MAVEN_DEPLOY_OPTS: "-pl :mcone-gamble,:api"
 
 # This will only validate and compile stuff and run e.g. maven-enforcer-plugin.
 # Because some enforcer rules might check dependency convergence and class duplications
@@ -13,6 +14,7 @@ variables:
 .validate: &validate
   tags:
     - maven
+  image: maven:3.6.1-jdk-8
   stage: build
   script:
     - 'mvn $MAVEN_CLI_OPTS test-compile'
@@ -22,26 +24,55 @@ variables:
 .verify: &verify
   tags:
     - maven
+  image: maven:3.6.1-jdk-8
   stage: test
   script:
-    - 'mvn $MAVEN_CLI_OPTS verify'
+    - 'mvn $MAVEN_CLI_OPTS install'
 
 validate:jdk8:
   <<: *validate
-  image: maven:3.6.1-jdk-8
 
 verify:master:jdk8:
   <<: *verify
-  image: maven:3.6.1-jdk-8
   artifacts:
     name: "$CI_PROJECT_PATH-jars-packaged-$CI_JOB_NAME"
     paths:
-      - $CI_PROJECT_DIR/target/*.jar
+      - $CI_PROJECT_DIR/*/target/*.jar
   only:
     - master
 
 verify:merges:jdk8:
   <<: *verify
-  image: maven:3.6.1-jdk-8
   except:
+    - master
+
+# For `master` branch run `mvn deploy` automatically.
+# Uses mounted settings.xml for authenticating with mcone-repo
+deploy:jdk8:
+  tags:
+    - maven
+  image: maven:3.6.1-jdk-8
+  stage: test
+  script:
+    - 'mvn $MAVEN_CLI_OPTS javadoc:jar javadoc:aggregate source:jar deploy $MAVEN_DEPLOY_OPTS'
+  artifacts:
+    name: "$CI_PROJECT_PATH-javadoc"
+    paths:
+      - $CI_PROJECT_DIR/target/site/apidocs
+      - $CI_PROJECT_DIR/*/target/*-javadoc.jar
+      - $CI_PROJECT_DIR/*/target/*-sources.jar
+  only:
+    - master
+
+pages:
+  image: busybox:latest
+  stage: deploy
+  script:
+    - 'mv $CI_PROJECT_DIR/target/site/apidocs $CI_PROJECT_DIR/public/'
+  dependencies:
+    - deploy:jdk8
+  artifacts:
+    paths:
+      - public
+  only:
     - master
