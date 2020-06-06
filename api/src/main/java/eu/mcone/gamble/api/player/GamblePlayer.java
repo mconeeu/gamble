@@ -14,11 +14,13 @@ public interface GamblePlayer extends Comparable<GamblePlayer> {
 
     Player getPlayer();
 
+    void changePosition(int position);
+
     int getCurrentPosition();
 
-    void changePosition(Gamble gamble, int position);
-
     int getCurrentPlacing();
+
+    void giveMapItems();
 
     default CorePlayer getCorePlayer() {
         return CoreSystem.getInstance().getCorePlayer(getPlayer());

@@ -3,10 +3,12 @@
  * You are not allowed to decompile the code
  */
 
-package eu.mcone.gamble.api.helper;
+package eu.mcone.gamble.plugin.state;
 
-public interface CountdownCallback {
-
-    void tick(int second);
-
+public enum GamblePhase {
+    LOBBY,
+    INGAME,
+    DICE,
+    PLAYING,
+    END
 }

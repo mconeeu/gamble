@@ -5,22 +5,48 @@
 
 package eu.mcone.gamble.api.minigame;
 
-import eu.mcone.gamble.api.Gamble;
-import org.bukkit.plugin.java.JavaPlugin;
+import eu.mcone.coresystem.api.bukkit.CorePlugin;
+import lombok.Getter;
+import org.bukkit.ChatColor;
+import org.bukkit.event.Listener;
 
-public abstract class GambleGame extends JavaPlugin  {
+import java.util.ArrayList;
+import java.util.List;
+
+@Getter
+public abstract class GambleGame extends CorePlugin {
+
+    @Getter
+    private static GambleGame instance;
+    private final List<Listener> listeners;
+    private GameHandler gameHandler;
+
+    protected GambleGame(String pluginName, ChatColor pluginColor, String prefixTranslation) {
+        super(pluginName, pluginColor, prefixTranslation);
+        instance = this;
+        listeners = new ArrayList<>();
+    }
 
     @Override
-    public final void onEnable() {}
+    public void onEnable() {
+        super.onEnable();
+    }
 
     @Override
-    public final void onDisable() {}
+    public void onDisable() {
+        super.onDisable();
+    }
 
-    @Override
-    public final void onLoad() {}
+    public void registerListener(Listener listener) {
+        listeners.add(listener);
+        registerListener(listener);
+    }
 
-    public abstract void initiate(Gamble gamble);
+    public abstract void initiate();
 
-    public abstract void phaseSwitched(GambleGamePhase gamePhase);
+    public abstract void abandon();
 
+    public void setGameHandler(GameHandler gameHandler) {
+        this.gameHandler = gameHandler;
+    }
 }

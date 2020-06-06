@@ -29,5 +29,4 @@ public class LobbyObjective extends eu.mcone.gameapi.api.scoreboard.LobbyObjecti
         super.onReload(corePlayer);
         setScore(1, "§f  " + Bukkit.getOnlinePlayers().size());
     }
-
 }

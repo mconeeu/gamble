@@ -5,10 +5,13 @@
 
 package eu.mcone.gamble.plugin.state;
 
+import eu.mcone.gamble.plugin.scoreboard.LobbyObjective;
 import eu.mcone.gameapi.api.gamestate.common.LobbyGameState;
 
 public class LobbyState extends LobbyGameState {
 
-
-
+    public LobbyState() {
+        super();
+        setObjective(LobbyObjective.class);
+    }
 }

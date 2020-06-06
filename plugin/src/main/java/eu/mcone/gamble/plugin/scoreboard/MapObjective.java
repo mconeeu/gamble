@@ -8,17 +8,16 @@ package eu.mcone.gamble.plugin.scoreboard;
 import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
 import eu.mcone.coresystem.api.bukkit.scoreboard.CoreSidebarObjective;
 import eu.mcone.gamble.api.player.GamblePlayer;
-import eu.mcone.gamble.plugin.GamblePlugin;
+import eu.mcone.gamble.plugin.Gamble;
+import eu.mcone.gameapi.api.scoreboard.InGameObjective;
 
-public class MapObjective extends CoreSidebarObjective {
+public class MapObjective extends InGameObjective {
     public MapObjective() {
-        super("gamble_inmap");
     }
 
     @Override
     protected void onRegister(CorePlayer corePlayer) {
         setDisplayName("    §6§lGamble");
-
         setScore(9, "");
         setScore(8, "§8» §7Dein Feld:");
         setScore(6, "");
@@ -30,9 +29,9 @@ public class MapObjective extends CoreSidebarObjective {
 
     @Override
     protected void onReload(CorePlayer corePlayer) {
-        GamblePlayer gp = GamblePlugin.getInstance().getGamblePlayer(corePlayer.getUuid());
-        setScore(7, "§f  " + gp.getCurrentPosition() + "/" + GamblePlugin.getInstance().getWorldFields());
+        GamblePlayer gp = Gamble.getInstance().getGamblePlayer(corePlayer.getUuid());
+        setScore(7, "§f  " + gp.getCurrentPosition() + "/" + Gamble.getInstance().getGameFields());
         setScore(4, "§f  " + gp.getCurrentPlacing());
-        setScore(1, "§f  " + (GamblePlugin.getInstance().getWorldFields() - gp.getCurrentPosition()));
+        setScore(1, "§f  " + (Gamble.getInstance().getGameFields() - gp.getCurrentPosition()));
     }
 }

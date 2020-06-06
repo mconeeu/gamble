@@ -9,12 +9,12 @@ import eu.mcone.gamble.api.player.GamblePlayer;
 import lombok.Getter;
 
 @Getter
-public class GambleGameResult {
+public class GameResult {
 
-    private GamblePlayer player;
-    private int placement, extraCubeSize;
+    private final GamblePlayer player;
+    private final int placement, extraCubeSize;
 
-    public GambleGameResult(GamblePlayer player, int placement, int extraCubeSize) {
+    public GameResult(GamblePlayer player, int placement, int extraCubeSize) {
         this.player = player;
         this.placement = placement;
         this.extraCubeSize = extraCubeSize;

@@ -3,9 +3,8 @@
  * You are not allowed to decompile the code
  */
 
-package eu.mcone.gamble.api.utils;
+package eu.mcone.gamble.plugin.util;
 
-import eu.mcone.gamble.api.Gamble;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.PluginCommand;
@@ -67,9 +66,6 @@ public class MinigameUtils {
         }
         pluginManager.disablePlugin(plugin);
         if (plugins != null && plugins.contains(plugin)) {
-            if (Gamble.DEBUG) {
-                Bukkit.getLogger().info("Removed " + plugin.getName() + " from bukkit-pluginlist!");
-            }
             plugins.remove(plugin);
         }
         if (names != null && names.containsKey(name)) {

@@ -5,50 +5,32 @@
 
 package eu.mcone.gamble.api;
 
-import eu.mcone.gamble.api.helper.MinigameHelper;
-import eu.mcone.gamble.api.listener.GambleListener;
-import eu.mcone.gamble.api.minigame.GambleGame;
-import eu.mcone.gamble.api.minigame.GambleGamePhase;
-import eu.mcone.gamble.api.minigame.GambleGameResult;
-import eu.mcone.gamble.api.minigame.GambleGameType;
+import eu.mcone.gamble.api.minigame.MiniGamesHandler;
 import eu.mcone.gamble.api.player.GamblePlayer;
-import eu.mcone.gameapi.api.GameAPI;
-import org.bukkit.Bukkit;
+import eu.mcone.gameapi.api.GamePlugin;
+import lombok.Getter;
+import lombok.Setter;
+import org.bukkit.ChatColor;
 
+import java.util.Collection;
 import java.util.UUID;
 
-public interface Gamble {
+@Getter
+public abstract class Gamble extends GamePlugin {
 
-    public static final boolean DEBUG = true;
+    @Getter
+    private static Gamble instance;
+    @Setter
+    private MiniGamesHandler miniGamesHandler;
 
-    /*Gamble getInstance();*/
-
-    @Deprecated
-    GameAPI getGameAPI();
-
-    @Deprecated
-    GambleGamePhase getGamePhase();
-
-    GambleGameType getRandomGambleGameType();
-
-    void finishGambleGame(GambleGameType type, EndReason reason, GambleGameResult... results);
-
-    GambleGameResult[] getLastGameResult();
-
-    GambleGameResult[] getGameResult(int round);
-
-    int getCurrentRound();
-
-    GamblePlayer getGamblePlayer(UUID uuid);
-
-    MinigameHelper getMinigameHelper();
-
-    default void registerListener(GambleGame game, GambleListener listener) {
-        Bukkit.getPluginManager().registerEvents(listener, game);
-        if (DEBUG) {
-            getGameAPI().getMessenger().broadcast("§b[DEBUG] §7" + game.getName() + " registered a new listener!");
-            getGameAPI().sendConsoleMessage("§b[DEBUG] §7" + game.getName() + " registered a new listener!");
-        }
+    public Gamble() {
+        super("Gamble", ChatColor.GOLD, "gamble.prefix");
+        instance = this;
     }
 
+    public abstract MiniGamesHandler getMiniGamesHandler();
+
+    public abstract GamblePlayer getGamblePlayer(UUID uuid);
+
+    public abstract Collection<GamblePlayer> getGamblePlayers();
 }

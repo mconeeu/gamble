@@ -1,5 +1,5 @@
 name: gamble
 version: ${project.version}
-main: eu.mcone.gamble.plugin.GamblePlugin
-authors: [Schmiddinger]
+main: eu.mcone.gamble.plugin.Gamble
+authors: [Dominik, Felix]
 depend: [MCONE-BukkitCoreSystem, MCONE-GameAPI]

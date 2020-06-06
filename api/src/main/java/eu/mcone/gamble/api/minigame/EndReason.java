@@ -5,11 +5,7 @@
 
 package eu.mcone.gamble.api.minigame;
 
-public enum GambleGamePhase {
-
-    SELECTED,
-    LOBBY,
-    INGAME,
-    END;
-
+public enum EndReason {
+    EXCEPTION,
+    ENDED
 }

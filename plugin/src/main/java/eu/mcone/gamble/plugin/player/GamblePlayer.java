@@ -5,10 +5,8 @@
 
 package eu.mcone.gamble.plugin.player;
 
-import eu.mcone.gamble.api.Gamble;
-import eu.mcone.gamble.api.player.GamblePlayer;
-import eu.mcone.gamble.plugin.GamblePlugin;
-import eu.mcone.gamble.plugin.listener.InventoryTriggerListener;
+import eu.mcone.gamble.plugin.Gamble;
+import eu.mcone.gamble.plugin.inventory.OverviewInventory;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
@@ -20,7 +18,7 @@ import org.bukkit.util.Vector;
 import java.util.List;
 import java.util.Map;
 
-public class BaseGamblePlayer implements GamblePlayer {
+public class GamblePlayer implements eu.mcone.gamble.api.player.GamblePlayer {
 
     @Getter
     private final Player player;
@@ -28,35 +26,34 @@ public class BaseGamblePlayer implements GamblePlayer {
     @Setter
     private int currentPosition;
 
-    public BaseGamblePlayer(Player player, int currentPosition) {
+    public GamblePlayer(Player player, int currentPosition) {
         this.player = player;
         this.currentPosition = currentPosition;
     }
 
-    @Override
-    public void changePosition(Gamble gamble, int position) {
+    public void changePosition(int position) {
         int tmpPosition = position;
-        if (tmpPosition > GamblePlugin.getInstance().getWorldFields()) {
-            tmpPosition = GamblePlugin.getInstance().getWorldFields();
+        if (tmpPosition > Gamble.getInstance().getGameFields()) {
+            tmpPosition = Gamble.getInstance().getGameFields();
         }
 
-        Location loc = GamblePlugin.getInstance().getGameWorld().getLocation("field_" + tmpPosition);
+        Location loc = Gamble.getInstance().getGameWorld().getLocation("field_" + tmpPosition);
 
         if (currentPosition == position) {
             player.teleport(loc.clone().add(0, 2, 0));
         } else {
             currentPosition = position;
             //player.setVelocity(new Vector(0, 5, 0));
-            Bukkit.getScheduler().scheduleSyncDelayedTask(GamblePlugin.getInstance(), () -> {
+            Bukkit.getScheduler().scheduleSyncDelayedTask(Gamble.getInstance(), () -> {
                 player.playSound(player.getLocation().add(0, 2, 0), Sound.EXPLODE, 1f, 1f);
                 player.setVelocity(new Vector(0, 60, 0));
             }, 15);
-            Bukkit.getScheduler().scheduleSyncDelayedTask(GamblePlugin.getInstance(), () -> {
+            Bukkit.getScheduler().scheduleSyncDelayedTask(Gamble.getInstance(), () -> {
                 if (currentPosition != position) {
-                    if (position > GamblePlugin.getInstance().getWorldFields()) {
-                        GamblePlugin.getInstance().getMessenger().send(player, "§7Du bist jetzt §6" + (position - GamblePlugin.getInstance().getWorldFields()) + " §7über dem Ziel!");
+                    if (position > Gamble.getInstance().getGameFields()) {
+                        Gamble.getInstance().getMessenger().send(player, "§7Du bist jetzt §6" + (position - Gamble.getInstance().getGameFields()) + " §7über dem Ziel!");
                     } else {
-                        GamblePlugin.getInstance().getMessenger().send(player, "§7Du bist jetzt auf Feld §6" + position + "§7!");
+                        Gamble.getInstance().getMessenger().send(player, "§7Du bist jetzt auf Feld §6" + position + "§7!");
                     }
                 }
                 player.playSound(player.getLocation(), Sound.LEVEL_UP, 1f, 1f);
@@ -68,8 +65,7 @@ public class BaseGamblePlayer implements GamblePlayer {
 
     @Override
     public int getCurrentPlacing() {
-
-        for (Map.Entry<Integer, List<GamblePlayer>> entry : GamblePlugin.getInstance().getPlayerRanking().entrySet()) {
+        for (Map.Entry<Integer, List<eu.mcone.gamble.api.player.GamblePlayer>> entry : Gamble.getInstance().getGameHandler().getPlayerRanking().entrySet()) {
             if (entry.getValue().contains(this)) {
                 return entry.getKey();
             }
@@ -79,12 +75,12 @@ public class BaseGamblePlayer implements GamblePlayer {
     }
 
     @Override
-    public int compareTo(GamblePlayer o) {
+    public int compareTo(eu.mcone.gamble.api.player.GamblePlayer o) {
         return Integer.compare(o.getCurrentPosition(), currentPosition);
     }
 
     public void giveMapItems() {
-        player.getInventory().setItem(8, InventoryTriggerListener.OVERVIEW);
+        player.getInventory().setItem(8, OverviewInventory.OVERVIEW);
     }
 
 }
