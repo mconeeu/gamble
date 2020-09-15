@@ -1,4 +1,4 @@
-name: gamble
+name: MCONE-Gamble
 version: ${project.version}
 main: eu.mcone.gamble.plugin.Gamble
 authors: [Dominik, Felix]

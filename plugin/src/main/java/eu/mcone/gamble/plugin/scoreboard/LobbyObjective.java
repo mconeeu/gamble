@@ -1,17 +1,13 @@
 /*
- * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
- * You are not allowed to decompile the code
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl, Louis Bockel and the MC ONE Minecraftnetwork. All rights reserved
+ *  You are not allowed to decompile the code
  */
 
 package eu.mcone.gamble.plugin.scoreboard;
 
 import eu.mcone.coresystem.api.bukkit.player.CorePlayer;
-import eu.mcone.coresystem.api.bukkit.scoreboard.CoreObjective;
 import eu.mcone.coresystem.api.bukkit.scoreboard.CoreSidebarObjectiveEntry;
 import org.bukkit.Bukkit;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
 
 public class LobbyObjective extends eu.mcone.gameapi.api.scoreboard.LobbyObjective {
 
