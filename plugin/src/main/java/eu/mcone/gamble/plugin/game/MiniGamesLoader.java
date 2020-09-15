@@ -1,8 +1,13 @@
+/*
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl, Louis Bockel and the MC ONE Minecraftnetwork. All rights reserved
+ *  You are not allowed to decompile the code
+ */
+
 package eu.mcone.gamble.plugin.game;
 
 import eu.mcone.gamble.api.minigame.GambleGame;
-import eu.mcone.gamble.plugin.util.MinigameUtils;
 import eu.mcone.gamble.plugin.Gamble;
+import eu.mcone.gamble.plugin.util.MinigameUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;

@@ -1,6 +1,6 @@
 /*
- * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl and the MC ONE Minecraftnetwork. All rights reserved
- * You are not allowed to decompile the code
+ * Copyright (c) 2017 - 2020 Felix Schmid, Dominik Lippl, Louis Bockel and the MC ONE Minecraftnetwork. All rights reserved
+ *  You are not allowed to decompile the code
  */
 
 package eu.mcone.gamble.plugin.command;
@@ -8,12 +8,9 @@ package eu.mcone.gamble.plugin.command;
 import eu.mcone.coresystem.api.bukkit.command.CorePlayerCommand;
 import eu.mcone.coresystem.api.bukkit.world.CoreLocation;
 import eu.mcone.gamble.plugin.Gamble;
-import eu.mcone.gameapi.api.GamePlugin;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
 import java.util.Map;
 
 public class GambleMainCommand extends CorePlayerCommand {
