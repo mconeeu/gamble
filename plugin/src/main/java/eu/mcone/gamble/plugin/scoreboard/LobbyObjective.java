@@ -13,7 +13,6 @@ public class LobbyObjective extends eu.mcone.gameapi.api.scoreboard.LobbyObjecti
 
     @Override
     protected void onLobbyRegister(CorePlayer corePlayer, CoreSidebarObjectiveEntry entry) {
-        super.onRegister(corePlayer, entry);
         setDisplayName("    §6§lGamble");
 
         entry.setScore(3, "");
@@ -23,7 +22,6 @@ public class LobbyObjective extends eu.mcone.gameapi.api.scoreboard.LobbyObjecti
 
     @Override
     protected void onLobbyReload(CorePlayer corePlayer, CoreSidebarObjectiveEntry entry) {
-        super.onReload(corePlayer, entry);
         entry.setScore(1, "§f  " + Bukkit.getOnlinePlayers().size());
     }
 }

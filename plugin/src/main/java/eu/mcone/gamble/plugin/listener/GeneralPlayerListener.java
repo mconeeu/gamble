@@ -22,6 +22,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.hanging.HangingBreakEvent;
+import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
@@ -141,6 +142,12 @@ public class GeneralPlayerListener implements Listener {
             e.setCancelled(true);
         }
     }
+
+    @EventHandler
+    public void onPlayerAchievementAward(PlayerAchievementAwardedEvent event) {
+        event.setCancelled(true);
+    }
+
 
     @EventHandler
     public void onPlayerPickupItem(PlayerPickupItemEvent e) {
