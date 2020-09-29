@@ -39,7 +39,6 @@ public abstract class GambleGame extends CorePlugin {
 
     public void registerListener(Listener listener) {
         listeners.add(listener);
-        registerListener(listener);
     }
 
     public abstract void initiate();

@@ -21,6 +21,7 @@ import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.World;
+import org.bukkit.event.Listener;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.scoreboard.DisplaySlot;
 
@@ -61,6 +62,10 @@ public class MiniGamesHandler implements eu.mcone.gamble.api.minigame.MiniGamesH
             currentGame = gambleGame;
             played.add(currentGame.getName());
             Gamble.getInstance().getMessenger().broadcast("§7Jetzt wird §f" + gambleGame.getPluginColor() + gambleGame.getName() + " §7gespielt!");
+
+            gambleGame.registerEvents(
+                    gambleGame.getListeners().toArray(new Listener[0])
+            );
 
             final BukkitTask[] task = new BukkitTask[1];
             final int[] countdownTime = {10};

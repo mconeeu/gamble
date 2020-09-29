@@ -5,6 +5,7 @@
 
 package eu.mcone.gamble.api;
 
+import eu.mcone.coresystem.api.bukkit.world.CoreWorld;
 import eu.mcone.gamble.api.minigame.MiniGamesHandler;
 import eu.mcone.gamble.api.player.GamblePlayer;
 import eu.mcone.gameapi.api.GamePlugin;
@@ -33,4 +34,6 @@ public abstract class Gamble extends GamePlugin {
     public abstract GamblePlayer getGamblePlayer(UUID uuid);
 
     public abstract Collection<GamblePlayer> getGamblePlayers();
+
+    public abstract CoreWorld getMinigameWorld();
 }

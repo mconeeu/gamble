@@ -43,6 +43,8 @@ public class Gamble extends eu.mcone.gamble.api.Gamble {
     private GameHandler gameHandler;
     @Getter
     private DiceHandler diceHandler;
+    @Getter
+    private CoreWorld minigameWorld;
 
     public Gamble() {
         super();
@@ -64,6 +66,7 @@ public class Gamble extends eu.mcone.gamble.api.Gamble {
         miniGamesHandler = new MiniGamesHandler();
         gameHandler = new GameHandler();
         diceHandler = new DiceHandler();
+        minigameWorld = CoreSystem.getInstance().getWorldManager().getWorld("minigames");
 
         //GAME WORLD
         CoreSystem.getInstance().getTranslationManager().loadAdditionalCategories("gamble");
