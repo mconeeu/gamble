@@ -17,10 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.event.entity.FoodLevelChangeEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.hanging.HangingBreakEvent;
 import org.bukkit.event.player.PlayerAchievementAwardedEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
@@ -69,6 +66,12 @@ public class GeneralPlayerListener implements Listener {
         if (!(Gamble.getInstance().getGameStateManager().getRunning() instanceof PlayingState)) {
             e.setCancelled(true);
         }
+    }
+
+    @EventHandler
+    public void onEntityDeathEvent(EntityDeathEvent event) {
+        event.getDrops().clear();
+        event.setDroppedExp(0);
     }
 
     @EventHandler
@@ -155,5 +158,4 @@ public class GeneralPlayerListener implements Listener {
             e.setCancelled(true);
         }
     }
-
 }
