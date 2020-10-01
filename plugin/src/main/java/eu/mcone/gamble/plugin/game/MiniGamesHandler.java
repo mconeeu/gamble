@@ -6,6 +6,7 @@
 package eu.mcone.gamble.plugin.game;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.coresystem.api.bukkit.broadcast.SimpleBroadcast;
 import eu.mcone.coresystem.api.bukkit.util.CoreTitle;
 import eu.mcone.gamble.api.minigame.EndReason;
 import eu.mcone.gamble.api.minigame.GambleGame;
@@ -61,7 +62,9 @@ public class MiniGamesHandler implements eu.mcone.gamble.api.minigame.MiniGamesH
             gambleGame.initiate();
             currentGame = gambleGame;
             played.add(currentGame.getName());
-            Gamble.getInstance().getMessenger().broadcast("§7Jetzt wird §f" + gambleGame.getPluginColor() + gambleGame.getName() + " §7gespielt!");
+            Gamble.getInstance().getMessenger().broadcast(
+                    new SimpleBroadcast("§7Jetzt wird §f" + gambleGame.getPluginColor() + gambleGame.getName() + " §7gespielt!")
+            );
 
             gambleGame.registerEvents(
                     gambleGame.getListeners().toArray(new Listener[0])
@@ -105,10 +108,14 @@ public class MiniGamesHandler implements eu.mcone.gamble.api.minigame.MiniGamesH
 
             gameResults.put(currentGame.getName(), results != null ? results : new GameResult[]{});
 
-            Gamble.getInstance().getMessenger().broadcast("Das Spiel ist vorbei - so ist es ausgegangen:");
+            Gamble.getInstance().getMessenger().broadcast(
+                    new SimpleBroadcast("Das Spiel ist vorbei - so ist es ausgegangen:")
+            );
             for (GameResult gameResult : getLastGameResult()) {
                 if (gameResult != null && gameResult.getPlayer() != null) {
-                    Gamble.getInstance().getMessenger().broadcast("        §6" + gameResult.getPlacement() + ". §f" + gameResult.getPlayer().getPlayer().getName());
+                    Gamble.getInstance().getMessenger().broadcast(
+                            new SimpleBroadcast("        §6" + gameResult.getPlacement() + ". §f" + gameResult.getPlayer().getPlayer().getName())
+                    );
                 }
             }
 
@@ -161,25 +168,27 @@ public class MiniGamesHandler implements eu.mcone.gamble.api.minigame.MiniGamesH
     }
 
     public GambleGame getRandomNotPlayedGame() {
-        Random random = new Random(loader.getGames().size());
-        GambleGame game = null;
+        if (loader.getGames().size() > 0) {
+            Random random = new Random(loader.getGames().size());
+            GambleGame game = null;
 
-        int i = 0;
-        while (game == null) {
-            if (i <= loader.getGames().size()) {
-                GambleGame randomGame = loader.getGames().get(Math.max(random.nextInt(loader.getGames().size()), 0));
-                if (!played.contains(randomGame.getName())) {
-                    game = randomGame;
+            int i = 0;
+            while (game == null) {
+                if (i <= loader.getGames().size()) {
+                    GambleGame randomGame = loader.getGames().get(Math.max(random.nextInt(loader.getGames().size()), 0));
+                    if (!played.contains(randomGame.getName())) {
+                        game = randomGame;
+                    }
+
+                    i++;
+                } else {
+                    played.clear();
+                    i = 0;
                 }
-
-                i++;
-            } else {
-                played.clear();
-                i = 0;
             }
-        }
 
-        return game;
+            return game;
+        } else throw new IllegalStateException("Could not pick random game. No Gamble Minigames could be loaded from plugins/MCONE-Gamble/games/!");
     }
 
     private void sendCountDown(int second) {

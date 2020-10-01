@@ -5,10 +5,12 @@
 
 package eu.mcone.gamble.api;
 
+import eu.mcone.coresystem.api.bukkit.gamemode.Gamemode;
 import eu.mcone.coresystem.api.bukkit.world.CoreWorld;
 import eu.mcone.gamble.api.minigame.MiniGamesHandler;
 import eu.mcone.gamble.api.player.GamblePlayer;
 import eu.mcone.gameapi.api.GamePlugin;
+import eu.mcone.gameapi.api.Option;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.ChatColor;
@@ -25,7 +27,7 @@ public abstract class Gamble extends GamePlugin {
     private MiniGamesHandler miniGamesHandler;
 
     public Gamble() {
-        super("Gamble", ChatColor.GOLD, "gamble.prefix");
+        super(Gamemode.GAMBLE, "gamble.prefix");
         instance = this;
     }
 
@@ -36,4 +38,5 @@ public abstract class Gamble extends GamePlugin {
     public abstract Collection<GamblePlayer> getGamblePlayers();
 
     public abstract CoreWorld getMinigameWorld();
+
 }

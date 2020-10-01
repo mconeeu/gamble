@@ -6,6 +6,7 @@
 package eu.mcone.gamble.plugin.dice;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.coresystem.api.bukkit.broadcast.SimpleBroadcast;
 import eu.mcone.coresystem.api.bukkit.util.CoreTitle;
 import eu.mcone.gamble.api.player.GamblePlayer;
 import eu.mcone.gamble.plugin.Gamble;
@@ -49,7 +50,9 @@ public class DiceHandler implements Listener {
 
     public void requestDice() {
         Bukkit.getScheduler().scheduleSyncDelayedTask(Gamble.getInstance(), () -> {
-            Gamble.getInstance().getMessenger().broadcast("§7Jetzt wird gewürfelt!");
+            Gamble.getInstance().getMessenger().broadcast(
+                    new SimpleBroadcast("§7Jetzt wird gewürfelt!")
+            );
             Bukkit.getScheduler().scheduleSyncDelayedTask(Gamble.getInstance(), this::request, 40);
         }, 40);
     }
@@ -100,7 +103,9 @@ public class DiceHandler implements Listener {
 
                 Bukkit.getScheduler().scheduleSyncDelayedTask(Gamble.getInstance(), () -> {
                     if (!Gamble.getInstance().getGameHandler().checkForWin()) {
-                        Gamble.getInstance().getMessenger().broadcast("Das nächste Spiel wird gezogen!");
+                        Gamble.getInstance().getMessenger().broadcast(
+                                new SimpleBroadcast("Das nächste Spiel wird gezogen!")
+                        );
 
                         Bukkit.getScheduler().scheduleSyncDelayedTask(Gamble.getInstance(), () -> {
                             try {

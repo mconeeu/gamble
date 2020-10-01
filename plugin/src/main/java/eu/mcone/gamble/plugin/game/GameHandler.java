@@ -6,6 +6,7 @@
 package eu.mcone.gamble.plugin.game;
 
 import eu.mcone.coresystem.api.bukkit.CoreSystem;
+import eu.mcone.coresystem.api.bukkit.broadcast.SimpleBroadcast;
 import eu.mcone.coresystem.api.bukkit.util.CoreTitle;
 import eu.mcone.gamble.api.player.GamblePlayer;
 import eu.mcone.gamble.api.utils.OrderUtils;
@@ -35,7 +36,7 @@ public class GameHandler {
             Map<Integer, List<GamblePlayer>> ordered = OrderUtils.sortByKeyDescending(playerRanking);
 
             int placedIndex = 0;
-            Gamble.getInstance().getMessenger().broadcast("§f§lDas Spiel ist vorbei. So ist es ausgegangen:");
+            Gamble.getInstance().getMessenger().broadcast(new SimpleBroadcast("§f§lDas Spiel ist vorbei. So ist es ausgegangen:"));
             for (Map.Entry<Integer, List<GamblePlayer>> entry : ordered.entrySet()) {
                 StringJoiner names = new StringJoiner(", ");
                 final int[] rf = {0};
@@ -54,9 +55,13 @@ public class GameHandler {
                             .fadeIn(2)
                             .fadeOut(2);
                     Bukkit.getOnlinePlayers().forEach(wonTitle::send);
-                    Gamble.getInstance().getMessenger().broadcast("  §61§7. §6§l" + names.toString() + " §7(" + field + ")");
+                    Gamble.getInstance().getMessenger().broadcast(
+                            new SimpleBroadcast("  §61§7. §6§l" + names.toString() + " §7(" + field + ")")
+                    );
                 } else if ((placedIndex == 1 || placedIndex == 2) && entry.getValue().size() != 0) {
-                    Gamble.getInstance().getMessenger().broadcast("  §6" + (placedIndex + 1) + "§7. §6" + names.toString() + " §7(" + field + ")");
+                    Gamble.getInstance().getMessenger().broadcast(
+                            new SimpleBroadcast("  §6" + (placedIndex + 1) + "§7. §6" + names.toString() + " §7(" + field + ")")
+                    );
                 } else {
                     final int pl = placedIndex;
                     entry.getValue().forEach(x -> {
@@ -84,7 +89,9 @@ public class GameHandler {
                 p.playSound(p.getLocation(), Sound.LEVEL_UP, 1f, 1f);
             }
 
-            Gamble.getInstance().getMessenger().broadcast("§7Du hast das Spiel §6gewonnen!");
+            Gamble.getInstance().getMessenger().broadcast(
+                    new SimpleBroadcast("§7Du hast das Spiel §6gewonnen!")
+            );
             Gamble.getInstance().getGameStateManager().setGameState(new EndState(), true);
         }
 

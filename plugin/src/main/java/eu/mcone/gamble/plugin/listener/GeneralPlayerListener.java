@@ -12,7 +12,7 @@ import eu.mcone.gamble.plugin.Gamble;
 import eu.mcone.gamble.plugin.scoreboard.LobbyObjective;
 import eu.mcone.gamble.plugin.state.PlayingState;
 import eu.mcone.gameapi.api.event.player.GamePlayerLoadedEvent;
-import eu.mcone.gameapi.api.event.player.GamePlayerUnloadEvent;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -22,10 +22,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.event.hanging.HangingBreakEvent;
-import org.bukkit.event.player.PlayerAchievementAwardedEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerPickupItemEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.weather.LightningStrikeEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -52,12 +49,13 @@ public class GeneralPlayerListener implements Listener {
     }
 
     @EventHandler
-    public void onUnload(GamePlayerUnloadEvent e) {
-        Gamble.getInstance().unregisterGamblePlayer(e.getBukkitPlayer().getUniqueId());
+    public void onUnload(PlayerQuitEvent e) {
+        Player p = e.getPlayer();
+        Gamble.getInstance().unregisterGamblePlayer(p.getUniqueId());
 
-        for (CorePlayer all : CoreSystem.getInstance().getOnlineCorePlayers()) {
-            if (all != e.getCorePlayer()) {
-                all.getScoreboard().getObjective(DisplaySlot.SIDEBAR).reload();
+        for (CorePlayer cp : CoreSystem.getInstance().getOnlineCorePlayers()) {
+            if (cp.getUuid().equals(p.getUniqueId())) {
+                cp.getScoreboard().getObjective(DisplaySlot.SIDEBAR).reload();
             }
         }
 
