@@ -57,6 +57,7 @@ public class Gamble extends eu.mcone.gamble.api.Gamble {
         gameWorld = CoreSystem.getInstance().getWorldManager().getWorld(Gamble.getInstance().getGameConfig().parseConfig().getGameWorld());
 
         getPlayerManager();
+        getDamageLogger();
         getGameStateManager().addGameStateFirst(new LobbyState())
                 .addGameState(new IngameState())
                 .addGameState(new PlayingState())
