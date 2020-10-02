@@ -21,7 +21,7 @@ import java.util.*;
 public class MiniGamesLoader {
 
     private final Map<String, GambleGame> games;
-    public static final File GAME_DIR = new File("./plugins/" + Gamble.getInstance().getName() + "/games/");
+    public static final File GAME_DIR = new File(Gamble.getInstance().getDataFolder(), "games");
 
     public MiniGamesLoader() {
         games = new HashMap<>();
